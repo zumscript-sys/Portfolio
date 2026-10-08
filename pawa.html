@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Jaczum — Content Writer | Sportsbook & iGaming</title>
+<meta name="description" content="Sportsbook and iGaming content writer for the Nigerian market. Landing pages, articles, social, campaign copy, and product microcopy." />
+<link rel="icon" type="image/png" href="logo.png" />
+
+<script>
+  (function () {
+    try {
+      var saved = localStorage.getItem('theme');
+      var prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+      var theme = saved || (prefersLight ? 'light' : 'dark');
+      document.documentElement.setAttribute('data-theme', theme);
+    } catch (e) {}
+  })();
+</script>
+
+<style>
+  /* =========================================================
+     THEME TOKENS
+     Accent = betPawa lime. Light theme mirrors the betPawa app.
+     ========================================================= */
+
+  :root,
+  [data-theme="dark"] {
+    --bg: #1c1f22;
+    --surface: #262a2e;
+    --surface-2: #2f3438;
+    --border: #3a3f44;
+
+    --nav-bg: #1c1f22;
+    --nav-text: #ffffff;
+    --nav-muted: #b8bfc5;
+
+    --text: #ffffff;
+    --text-soft: #d2d8dd;
+    --muted: #8a9299;
+
+    --accent: #b4f000;
+    --accent-dim: #9ad100;
+    --accent-contrast: #1a1a1a;
+
+    --card-bg: #262a2e;
+    --page-bg: #1c1f22;
+    --footer-bg: #262a2e;
+
+    --toggle-bg: #2f3438;
+    --toggle-knob: #b4f000;
+
+    --shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+  }
+
+  [data-theme="light"] {
+    --bg: #f1f2f4;
+    --surface: #ffffff;
+    --surface-2: #f6f7f8;
+    --border: #e3e5e8;
+
+    --nav-bg: #23272b;
+    --nav-text: #ffffff;
+    --nav-muted: #b8bfc5;
+
+    --text: #1c1f22;
+    --text-soft: #3d4247;
+    --muted: #6b7176;
+
+    --accent: #b4f000;
+    --accent-dim: #9ad100;
+    --accent-contrast: #1a1a1a;
+
+    --card-bg: #ffffff;
+    --page-bg: #f1f2f4;
+    --footer-bg: #ffffff;
+
+    --toggle-bg: #e3e5e8;
+    --toggle-knob: #b4f000;
+
+    --shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  }
+
+  /* ========================================================= */
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  a { color: var(--text); text-decoration: none; }
+  a.link-accent { color: var(--text); border-bottom: 1px solid var(--accent); padding-bottom: 1px; }
+  a:hover { color: var(--accent-dim); }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 0 var(--pad); }
+
+  :root {
+    --pad: clamp(16px, 4vw, 24px);
+    --card-pad: clamp(20px, 4vw, 28px);
+  }
+
+  /* ---------- NAV (dark bar like betPawa) ---------- */
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--nav-bg);
+    border-bottom: 1px solid rgba(0,0,0,0.15);
+  }
+  nav .container {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px; max-width: 1100px;
+  }
+  .logo {
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 800; font-size: 17px; letter-spacing: -0.02em;
+    color: var(--nav-text);
+  }
+  .logo-img {
+    width: 32px; height: 32px;
+    object-fit: contain;
+    flex-shrink: 0;
+    border-radius: 8px;
+  }
+  .logo span { color: var(--nav-text); }
+  .logo span i { color: var(--accent); font-style: normal; }
+  @media (max-width: 480px) {
+    .logo-img { width: 28px; height: 28px; }
+    .logo { font-size: 16px; }
+  }
+
+  .nav-right { display: flex; align-items: center; gap: 20px; }
+  .nav-links { display: flex; gap: 22px; font-size: 14px; }
+  .nav-links a { color: var(--nav-muted); font-weight: 500; }
+  .nav-links a:hover { color: var(--nav-text); }
+  @media (max-width: 720px) { .nav-links { display: none; } }
+
+  /* ---------- THEME TOGGLE ---------- */
+  .theme-toggle {
+    position: relative;
+    width: 52px;
+    height: 28px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 999px;
+    cursor: pointer;
+    padding: 0;
+    outline: none;
+    transition: background 0.25s ease;
+    flex-shrink: 0;
+  }
+  .theme-toggle:hover { background: rgba(255,255,255,0.22); }
+  .theme-toggle:focus-visible {
+    box-shadow: 0 0 0 3px rgba(180, 240, 0, 0.4);
+  }
+  .theme-toggle .knob {
+    position: absolute;
+    top: 3px; left: 3px;
+    width: 20px; height: 20px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.25s ease;
+    color: var(--accent-contrast);
+  }
+  [data-theme="light"] .theme-toggle .knob {
+    transform: translateX(24px);
+  }
+  .theme-toggle .knob svg {
+    width: 12px; height: 12px;
+    display: block;
+  }
+  .theme-toggle .icon-sun,
+  .theme-toggle .icon-moon {
+    transition: opacity 0.2s ease, transform 0.25s ease;
+    position: absolute;
+  }
+  [data-theme="dark"] .theme-toggle .icon-sun { opacity: 0; transform: rotate(-90deg); }
+  [data-theme="dark"] .theme-toggle .icon-moon { opacity: 1; transform: rotate(0); }
+  [data-theme="light"] .theme-toggle .icon-sun { opacity: 1; transform: rotate(0); }
+  [data-theme="light"] .theme-toggle .icon-moon { opacity: 0; transform: rotate(90deg); }
+
+  /* ---------- HERO ---------- */
+  header.hero {
+    padding: clamp(36px, 7vw, 64px) 0 clamp(28px, 5vw, 48px);
+    background: var(--page-bg);
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text);
+    background: var(--accent);
+    padding: 6px 12px;
+    border-radius: 999px;
+    margin-bottom: 20px;
+  }
+  h1 {
+    font-size: clamp(26px, 6vw, 42px);
+    line-height: 1.15; letter-spacing: -0.03em; font-weight: 800;
+    margin-bottom: 14px;
+    color: var(--text);
+  }
+  h1 em { color: var(--text); font-style: normal; background: var(--accent); padding: 0 6px; border-radius: 4px; }
+  .subhead { font-size: clamp(15px, 3.5vw, 17px); color: var(--muted); max-width: 620px; }
+
+  /* ---------- SECTIONS ---------- */
+  section {
+    padding: clamp(36px, 6vw, 56px) 0;
+    background: var(--page-bg);
+    border-bottom: 1px solid var(--border);
+  }
+  .section-head { margin-bottom: clamp(20px, 3.5vw, 32px); }
+  .section-head h2 { font-size: clamp(20px, 4vw, 24px); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 4px; color: var(--text); }
+  .section-head p { color: var(--muted); font-size: clamp(13px, 3vw, 15px); }
+
+  /* ---------- SAMPLE WRAPPER ---------- */
+  .sample {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: var(--card-pad);
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+  }
+  .sample-label {
+    display: inline-block;
+    font-size: 10px; font-weight: 800; letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-contrast);
+    background: var(--accent);
+    padding: 4px 10px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+  }
+  .sample h3 { font-size: clamp(17px, 3.5vw, 20px); font-weight: 800; margin-bottom: 4px; letter-spacing: -0.01em; line-height: 1.3; color: var(--text); }
+  .sample .context { color: var(--muted); font-size: clamp(12px, 2.8vw, 13px); margin-bottom: 20px; }
+
+  /* ---------- LANDING DEMO ---------- */
+  .landing {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: clamp(22px, 5vw, 36px) clamp(16px, 4vw, 28px);
+    text-align: center;
+  }
+  .landing h4 { font-size: clamp(20px, 4.5vw, 26px); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 10px; line-height: 1.2; color: var(--text); }
+  .landing h4 em { color: var(--text); font-style: normal; background: var(--accent); padding: 0 5px; border-radius: 4px; }
+  .landing .land-sub {
+    color: var(--muted); font-size: clamp(13px, 3vw, 15px);
+    margin-bottom: 22px; max-width: 480px; margin-left: auto; margin-right: auto;
+  }
+  .landing .land-cta {
+    display: inline-block; background: var(--accent); color: var(--accent-contrast);
+    font-weight: 800; padding: 12px 26px; border-radius: 8px;
+    font-size: 15px; margin-bottom: 28px;
+    letter-spacing: -0.01em;
+  }
+  .landing .props {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 16px; text-align: left; margin-bottom: 24px;
+  }
+  .landing .props div {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px;
+  }
+  .landing .props div strong { display: block; font-size: 13px; margin-bottom: 4px; color: var(--text); font-weight: 700; }
+  .landing .props div span { font-size: 12px; color: var(--muted); line-height: 1.5; }
+  .landing .footer-line {
+    font-size: 11px; color: var(--muted);
+    border-top: 1px solid var(--border); padding-top: 14px; line-height: 1.5;
+  }
+  @media (max-width: 640px) {
+    .landing .props { grid-template-columns: 1fr; gap: 10px; text-align: left; }
+  }
+
+  /* ---------- ARTICLE ---------- */
+  .article {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: clamp(20px, 4vw, 32px);
+  }
+  .article .art-title { font-size: clamp(18px, 4vw, 22px); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 5px; line-height: 1.25; color: var(--text); }
+  .article .art-meta { font-size: 12px; color: var(--muted); margin-bottom: 18px; }
+  .article p { color: var(--text-soft); margin-bottom: 13px; font-size: clamp(14px, 3vw, 15px); }
+  .article p strong { color: var(--text); background: rgba(180, 240, 0, 0.25); padding: 1px 4px; border-radius: 3px; }
+  .article h5 { font-size: clamp(14px, 3.2vw, 16px); font-weight: 800; margin: 20px 0 8px; color: var(--text); }
+  .article .art-footer {
+    font-size: 12px; color: var(--muted);
+    border-top: 1px solid var(--border); padding-top: 14px; margin-top: 20px;
+    line-height: 1.5;
+  }
+
+  /* ---------- SOCIAL ---------- */
+  .social-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  .social-post {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: clamp(14px, 3vw, 18px) clamp(16px, 3.5vw, 20px);
+  }
+  .social-post .platform {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 11px; color: var(--muted); margin-bottom: 8px; font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .social-post .platform::before {
+    content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0;
+  }
+  .social-post p { font-size: clamp(14px, 3vw, 15px); color: var(--text-soft); }
+
+  /* ---------- CAMPAIGN (mimics betPawa promo card) ---------- */
+  .campaign {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: clamp(20px, 4vw, 28px);
+  }
+  .campaign .camp-hero {
+    text-align: center; margin-bottom: 22px; padding-bottom: 22px;
+    border-bottom: 1px solid var(--border);
+  }
+  .campaign .camp-hero h4 {
+    font-size: clamp(20px, 4.5vw, 24px); font-weight: 800;
+    letter-spacing: -0.02em; margin-bottom: 8px; line-height: 1.2;
+    color: var(--text);
+  }
+  .campaign .camp-hero h4 em {
+    color: var(--text); font-style: normal;
+    background: var(--accent); padding: 2px 8px; border-radius: 5px;
+  }
+  .campaign .camp-hero p { color: var(--muted); font-size: clamp(13px, 3vw, 15px); margin-bottom: 18px; }
+  .campaign .camp-cta {
+    display: inline-block; background: var(--accent); color: var(--accent-contrast);
+    font-weight: 800; padding: 11px 22px; border-radius: 8px; font-size: 14px;
+  }
+  .campaign .camp-row {
+    margin-bottom: 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .campaign .camp-row:last-child { margin-bottom: 0; }
+  .campaign .camp-row .label {
+    font-size: 10px; font-weight: 800; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 6px;
+  }
+  .campaign .camp-row p { font-size: clamp(13px, 3vw, 14px); color: var(--text-soft); }
+
+  /* ---------- MICROCOPY ---------- */
+  .micro {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .micro table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .micro th, .micro td { text-align: left; padding: 14px 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .micro th {
+    background: var(--surface);
+    font-size: 10px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--muted); font-weight: 800;
+  }
+  .micro td { color: var(--text-soft); }
+  .micro td:first-child { color: var(--text); font-weight: 600; }
+  .micro tr:last-child td { border-bottom: none; }
+  .micro .new { color: var(--text); font-weight: 500; background: rgba(180, 240, 0, 0.15); padding: 3px 6px; border-radius: 4px; display: inline-block; }
+
+  @media (max-width: 640px) {
+    .micro { background: transparent; border: none; overflow: visible; }
+    .micro thead { display: none; }
+    .micro, .micro tbody, .micro tr, .micro td { display: block; width: 100%; }
+    .micro tr {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+    }
+    .micro td { border: none; padding: 0; font-size: 13px; }
+    .micro td:first-child {
+      font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); font-weight: 800; margin-bottom: 8px; display: block;
+    }
+    .micro td:nth-child(2) {
+      color: var(--muted); font-size: 12px; margin-bottom: 8px;
+      text-decoration: line-through; opacity: 0.75;
+    }
+    .micro td:nth-child(2)::before {
+      content: "Original: "; text-decoration: none; display: inline; opacity: 0.8;
+    }
+    .micro td:nth-child(3)::before {
+      content: "Rewrite: "; color: var(--muted); font-size: 10px;
+      letter-spacing: 0.1em; text-transform: uppercase; font-weight: 800;
+      display: block; margin-bottom: 4px;
+    }
+    .micro td:nth-child(3) { color: var(--text); font-size: 14px; line-height: 1.5; }
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer {
+    padding: clamp(40px, 7vw, 56px) 0 clamp(32px, 5vw, 40px);
+    background: var(--footer-bg);
+    text-align: center;
+  }
+  footer h2 { font-size: clamp(20px, 4vw, 24px); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; color: var(--text); }
+  footer p { color: var(--muted); margin-bottom: 22px; font-size: clamp(13px, 3vw, 15px); }
+  .contact-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; padding: 13px 22px; border-radius: 8px;
+    font-weight: 800; font-size: 14px; transition: all 0.15s;
+    max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    letter-spacing: -0.01em;
+  }
+  .btn-primary { background: var(--accent); color: var(--accent-contrast); }
+  .btn-primary:hover { background: var(--accent-dim); color: var(--accent-contrast); }
+  .btn-ghost { border: 1px solid var(--border); color: var(--text); background: transparent; }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--text); background: var(--accent); }
+  @media (max-width: 380px) {
+    .btn { font-size: 13px; padding: 12px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <div class="logo">
+      <img src="logo.png" alt="Jaczum" class="logo-img" />
+      <span>james<i>.write</i></span>
+    </div>
+    <div class="nav-right">
+      <div class="nav-links">
+        <a href="#landing">Landing</a>
+        <a href="#article">Article</a>
+        <a href="#social">Social</a>
+        <a href="#campaign">Campaign</a>
+        <a href="#microcopy">Microcopy</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" type="button">
+        <span class="knob">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container">
+    <span class="eyebrow">Content Writer · Sportsbook &amp; iGaming</span>
+    <h1>Betting content for the <em>Nigerian market.</em></h1>
+    <p class="subhead">
+      Landing pages, articles, social, campaign copy, and product microcopy — written for the sportsbook
+      products I've actually bet on. The samples below are the work. Read them straight.
+    </p>
+  </div>
+</header>
+
+<!-- LANDING -->
+<section id="landing">
+  <div class="container">
+    <div class="section-head">
+      <h2>Landing page</h2>
+      <p>Pre-match deposit page. Nigerian market. Premier League and NPFL weekend.</p>
+    </div>
+
+    <div class="sample">
+      <span class="sample-label">Landing page</span>
+      <h3>Bet on the Premier League and the NPFL</h3>
+      <p class="context">Hero, three value props, one CTA, compliance footer.</p>
+
+      <div class="landing">
+        <h4>Every match. <em>Every market.</em> One bet slip.</h4>
+        <p class="land-sub">
+          Bet on the Premier League and the NPFL — 1X2, Over/Under, Both Teams to Score, and 200+ markets.
+          Deposit in seconds with bank transfer, USSD, or card.
+        </p>
+        <div class="land-cta">Place your first bet →</div>
+
+        <div class="props">
+          <div>
+            <strong>Instant deposits</strong>
+            <span>Fund your account with bank transfer, USSD, or card in under a minute.</span>
+          </div>
+          <div>
+            <strong>Live odds, all match</strong>
+            <span>Prices update in real time — bet pre-match or in-play.</span>
+          </div>
+          <div>
+            <strong>Cash out anytime</strong>
+            <span>Take your returns before the final whistle. Your call.</span>
+          </div>
+        </div>
+
+        <div class="footer-line">
+          18+ only. Bet responsibly. T&amp;Cs apply. Free bet tokens are subject to qualifying conditions.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARTICLE -->
+<section id="article">
+  <div class="container">
+    <div class="section-head">
+      <h2>Article</h2>
+      <p>SEO explainer. Target: "accumulator bet meaning." Nigerian audience.</p>
+    </div>
+
+    <div class="sample">
+      <span class="sample-label">SEO article</span>
+      <h3>How accumulator bets work — and when they don't</h3>
+      <p class="context">Beginner audience. Accurate mechanics. Risk included.</p>
+
+      <div class="article">
+        <div class="art-title">How accumulator bets work — and when they don't</div>
+        <div class="art-meta">6 min read · Sportsbook basics</div>
+
+        <p>An accumulator — often called an "acca" or "combo bet" — combines two or more selections into a single wager. Every leg has to win for the bet to pay out. Here's how the mechanics actually work, and where most Nigerian bettors get caught out.</p>
+
+        <h5>What an accumulator actually is</h5>
+        <p>A single bet has one selection. An accumulator has two or more, bundled together. The appeal is obvious: each additional leg multiplies your potential return.</p>
+        <p>A 2-fold, a 5-fold, a 10-fold — the naming refers to how many legs you've combined. There's no upper limit at most Nigerian bookmakers, but the more legs you add, the more fragile the whole thing becomes.</p>
+
+        <h5>The odds math</h5>
+        <p>Your acca's total odds are the product of every leg's decimal odds.</p>
+        <p>Leg 1: 2.00 · Leg 2: 1.50 · <strong>Total: 2.00 × 1.50 = 3.00</strong></p>
+        <p>That multiplication is what makes accas attractive. It's also what makes them risky. Every leg you add has to win. If one fails — even by a single goal, even in the 90th minute — the whole bet is dead. There is no partial payout.</p>
+
+        <h5>What that means for probability</h5>
+        <p>Every decimal odds figure carries an implied probability: <strong>1 ÷ odds × 100</strong>.</p>
+        <p>2.00 → 50% · 1.50 → 66.7%</p>
+        <p>An acca's combined probability is those multiplied: <strong>50% × 66.7% = 33.3%</strong>.</p>
+        <p>So a 2-fold at 3.00 total odds has roughly a one-in-three chance of landing. Stretch that to five legs — say, three Premier League games and two NPFL fixtures — and the true probability drops below 10%, even though the payout looks enormous. The bookmaker's margin compounds with every leg you add.</p>
+
+        <h5>Cash out, explained</h5>
+        <p>Most Nigerian bookmakers let you settle an acca before all legs finish, for a reduced return. It's useful when your final leg is drifting in-play, or when you're protecting a large potential payout.</p>
+        <p>But the offered price is rarely the full value of your position. The bookmaker builds a margin into every cash-out quote. If the remaining legs look strong, cashing out early usually costs you.</p>
+
+        <h5>When accumulators make sense</h5>
+        <p>There are three scenarios where an acca is a sharper bet than singles. First, correlated legs — a team to win <em>and</em> both teams to score in the same match. Second, two or three strong short-priced favourites at 1.30–1.50. Third, small stake, high ceiling, for entertainment rather than expected value.</p>
+        <p>Beyond that — say, a 10-fold mixing five leagues — the math turns against you fast. You're not building a bet. You're buying a lottery ticket with extra steps.</p>
+
+        <h5>The honest summary</h5>
+        <p>Accumulators aren't "better" or "worse" than singles. They're a different risk profile. A single is a knife. An acca is a chain — the more links you add, the more places it can break.</p>
+        <p>If you're building one, know the math before you build it. If you're adding legs just to boost the payout, stop. That's how slips lose.</p>
+
+        <div class="art-footer">
+          <strong>18+.</strong> Bet responsibly. Accumulators carry higher risk than single bets. Set a stake limit before you build your slip.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL -->
+<section id="social">
+  <div class="container">
+    <div class="section-head">
+      <h2>Social</h2>
+      <p>Match-day pack. Nigerian audience. Premier League derby weekend.</p>
+    </div>
+
+    <div class="sample">
+      <span class="sample-label">Social captions</span>
+      <h3>Derby weekend — five posts</h3>
+      <p class="context">Twitter/X, Facebook, Instagram. Pre-match, live, and post-result.</p>
+
+      <div class="social-grid">
+        <div class="social-post">
+          <div class="platform">Twitter / X — pre-match</div>
+          <p>Derby day. Two teams. One city. 200+ markets on the slip. Who are you backing? 👇</p>
+        </div>
+        <div class="social-post">
+          <div class="platform">Facebook — pre-match</div>
+          <p>The Manchester derby is hours away. Every market you want — 1X2, Over/Under, BTTS, correct score — all live on the app. Build your slip, back your team, and track every minute in-play. 18+.</p>
+        </div>
+        <div class="social-post">
+          <div class="platform">Instagram — pre-match</div>
+          <p>Derby day hits different. 🔥<br>Every market. Every minute. Every angle.<br>Build your slip → link in bio.<br>18+ | Bet responsibly.</p>
+        </div>
+        <div class="social-post">
+          <div class="platform">Twitter / X — live in-play (75')</div>
+          <p>75'. Still 0-0. Odds shifting fast. Over 0.5 goals now at 1.45. Live markets are open — your call.</p>
+        </div>
+        <div class="social-post">
+          <div class="platform">Facebook — after result</div>
+          <p>Full time. If you backed the winner, cash out or let it ride — your slip, your call. If not, next matchday is only days away. 18+ | Bet responsibly.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAMPAIGN -->
+<section id="campaign">
+  <div class="container">
+    <div class="section-head">
+      <h2>Campaign copy</h2>
+      <p>Welcome bonus. Nigerian market. Regulated-market safe.</p>
+    </div>
+
+    <div class="sample">
+      <span class="sample-label">Campaign</span>
+      <h3>First-deposit welcome offer</h3>
+      <p class="context">Promo hero, push notification, email subject, T&amp;Cs summary.</p>
+
+      <div class="campaign">
+        <div class="camp-hero">
+          <h4>Your first bet, on us — up to <em>₦10,000</em>.</h4>
+          <p>Sign up, deposit, and place your first bet. If it loses, we'll return your stake as a free bet token.</p>
+          <div class="camp-cta">Claim your welcome offer →</div>
+        </div>
+
+        <div class="camp-row">
+          <div class="label">Push notification</div>
+          <p>Your first bet's on us — up to ₦10,000. Tap to claim. 18+</p>
+        </div>
+
+        <div class="camp-row">
+          <div class="label">Email subject line</div>
+          <p>Your first bet is on us — claim up to ₦10,000</p>
+        </div>
+
+        <div class="camp-row">
+          <div class="label">T&amp;Cs summary</div>
+          <p>New customers only. Minimum deposit ₦500. First bet must be placed at odds of 1.50 or higher. Free bet token valid for 7 days. 18+ only. Bet responsibly. Full T&amp;Cs apply.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MICROCOPY -->
+<section id="microcopy">
+  <div class="container">
+    <div class="section-head">
+      <h2>Product microcopy</h2>
+      <p>Bet slip and deposit flow. Nigerian app. Eight strings, rewritten.</p>
+    </div>
+
+    <div class="sample">
+      <span class="sample-label">UX writing</span>
+      <h3>Bet slip &amp; deposit strings</h3>
+      <p class="context">Original and rewrite, side by side.</p>
+
+      <div class="micro">
+        <table>
+          <thead>
+            <tr>
+              <th>Context</th>
+              <th>Original</th>
+              <th>Rewrite</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Empty bet slip</td>
+              <td>No selections.</td>
+              <td class="new">Your slip is empty. Tap any odds to add a selection.</td>
+            </tr>
+            <tr>
+              <td>Stake input</td>
+              <td>Enter amount</td>
+              <td class="new">Stake (min. ₦100)</td>
+            </tr>
+            <tr>
+              <td>Insufficient balance</td>
+              <td>Error: insufficient funds.</td>
+              <td class="new">Your balance is too low for this stake. Top up?</td>
+            </tr>
+            <tr>
+              <td>Deposit success</td>
+              <td>Transaction successful.</td>
+              <td class="new">Deposit confirmed. Your balance is updated.</td>
+            </tr>
+            <tr>
+              <td>Odds change</td>
+              <td>Odds have changed.</td>
+              <td class="new">One or more odds moved. Review your slip before confirming.</td>
+            </tr>
+            <tr>
+              <td>Cash out</td>
+              <td>Confirm cash out?</td>
+              <td class="new">Cash out now for ₦[amount]? This closes your bet early.</td>
+            </tr>
+            <tr>
+              <td>Bet placed</td>
+              <td>Bet accepted.</td>
+              <td class="new">Bet placed. Good luck — track it in My Bets.</td>
+            </tr>
+            <tr>
+              <td>RG footer</td>
+              <td>—</td>
+              <td class="new">18+. Bet responsibly. Set a deposit limit in Account Settings.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="container">
+    <h2>Get in touch.</h2>
+    <p>Available for contract or full-time. Remote, Europe-friendly hours.</p>
+    <div class="contact-row">
+      <a href="mailto:zurumdev@gmail.com" class="btn btn-primary">zurumdev@gmail.com</a>
+      <a href="https://www.linkedin.com/in/zurum" class="btn btn-ghost">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var toggle = document.getElementById('themeToggle');
+    var root = document.documentElement;
+
+    toggle.addEventListener('click', function () {
+      var current = root.getAttribute('data-theme') || 'dark';
+      var next = current === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('theme', next); } catch (e) {}
+    });
+
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function (e) {
+      try {
+        if (!localStorage.getItem('theme')) {
+          root.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+        }
+      } catch (err) {}
+    });
+  })();
+</script>
+
+</body>
+</html>
